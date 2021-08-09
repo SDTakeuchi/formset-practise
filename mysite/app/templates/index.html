@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h2>{{ user.name }}</h2>
+            <table>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ formset.management_form }}
+                    {% for line_form in formset %}
+                        {% if forloop.first %}
+                            <th>{{ line_form.name.lable }}</th>
+                            <th>{{ line_form.DELETE.lable }}</th>
+                        {% endif %}
+                            <hr>{{ line_form.as_p }}
+                    {% endfor %}
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="{% url 'list' %}" class="btn btn-secondary">Back</a>
+                </form>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            {% if 'add' in request.path %}
+                <h2>Add Programmer</h2>
+            {% elif 'edit' in request.path %}
+                <h2>Edit Programmer</h2>
+            {% endif %}
+            <form method="POST">
+                    {% csrf_token %}
+                    {{ formset.management_form }}
+                    {{ form.as_table }}
+                <table>
+                    {% for line_form in formset %}
+                        <hr>
+                        {{ line_form.as_p }}
+                    {% endfor %}
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="{% url 'list' %}" class="btn btn-secondary">Back</a>
+                
+                </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
